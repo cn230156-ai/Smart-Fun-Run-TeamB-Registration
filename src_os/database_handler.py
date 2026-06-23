@@ -1,4 +1,4 @@
- # database_handler.py
+# database_handler.py
 import threading
 import os
 import time
