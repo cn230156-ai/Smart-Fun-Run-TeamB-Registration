@@ -1,1 +1,32 @@
- 
+### 1. Hardware & Components Declaration
+
+Since MIT App Inventor is a block-based visual programming language, we declare the physical hardware permissions and software components instead of traditional code variables:
+
+| Component Name | Component Type | Hardware / Software Function |
+| :--- | :--- | :--- |
+| `Button1` | User Interface | A physical screen button used to trigger the scanning process. |
+| `BarcodeScanner1` | Sensor / Camera | Utilizes the smartphone's **Rear Camera** to scan barcodes or QR codes. |
+| `Web1` | Connectivity | Utilizes the device's **Wi-Fi / Mobile Data** module to execute HTTP GET requests. |
+| `Clock1` | Sensor / Internal Clock | Leverages the smartphone's **Internal System Clock** to fetch the current timestamp. |
+| `Label1` | User Interface | A text display element on the screen to show the server's response. |
+
+
+### 2. System Workflow & Logic
+
+The system operates based on 3 main phases declared within the program blocks:
+
+#### A. Triggering the Scan
+* **Block:** `when Button1.Click`
+* **Operation:** When the user taps `Button1`, the application calls the `BarcodeScanner1.DoScan` function, initializing the device's camera to scan a code.
+
+#### B. Data Transmission
+* **Block:** `when BarcodeScanner1.AfterScan`
+* **Operation:** Once a code is successfully scanned, the retrieved `result` is concatenated (joined) with the Google Apps Script API endpoint:
+  `https://script.google.com/macros/s/AKfycbzUTSq5l...`
+* The `Web1` component then triggers an **HTTP GET** request (`call Web1.Get`) to pass this data to your database/Google Sheets.
+
+#### C. Handling the Response & Formatting
+* **Block:** `when Web1.GotText`
+* **Operation:** When the server responds, the app catches the `responseContent`.
+* This data is combined with the text string `" Masa "` and the device's current date, formatted using the pattern `"MMM d, yyyy"` (e.g., *Jun 28, 2026*).
+* The final string is outputted to the user's screen via `Label1.Text`.
