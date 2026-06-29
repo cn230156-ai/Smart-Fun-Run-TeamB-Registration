@@ -1,1 +1,21 @@
- 
+Start((Start))
+Scan[Click Button]
+Barcode[Barcode Scanner]
+Result[Barcode Result]
+URL[Create Google Script URL]
+Web[Web1.Get()]
+Response[Receive Response]
+Time[Get Current Date]
+Display[Display Result on Label]
+End((End))
+
+Start --> Scan
+Scan --> Barcode
+Barcode --> Result
+Result --> URL
+URL --> Web
+Web --> Response
+Response --> Time
+Time --> Display
+Display --> End
+``` 
